@@ -2,19 +2,23 @@
 
 void main()
 {
-	int a,b = 0;
-	printf("Nhap a,b:\n");
-	scanf_s("%d%d", &a, &b);
-	if (a = b)
+	float a = 0;
+	printf("Nhap diem:\n");
+	scanf_s("%f", &a);
+	if (a >= 8)
 	{
-		printf("a = b\n");
+		printf("Gioi\n");
 	}
-	else if (a > b)
-	{
-		printf("a > b\n");
-	}
-	else
+	else if (a >= 6.5)
 		{
-		printf("a < b\n");
-	}
+		printf("Kha\n");
+		}
+		else if (a >= 5)
+			{
+		printf("TB\n");
+			}
+		else
+		{
+			printf("Yeu\n");
+		}
 }
