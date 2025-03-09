@@ -2,23 +2,21 @@
 
 void main()
 {
-	float a = 0;
-	printf("Nhap diem:\n");
-	scanf_s("%f", &a);
-	if (a >= 8)
+	int a, b,c = 0;
+	printf("Nhap so a:\n");
+	scanf_s("%d", &a);
+	printf("Nhap so b:\n");
+	scanf_s("%d", &b);
+	printf("Nhap so c:\n");
+	scanf_s("%d", &c);
+	int max = a;
+	if (b >= max)
 	{
-		printf("Gioi\n");
+		max = a;
 	}
-	else if (a >= 6.5)
-		{
-		printf("Kha\n");
-		}
-		else if (a >= 5)
-			{
-		printf("TB\n");
-			}
-		else
-		{
-			printf("Yeu\n");
-		}
+	if (c >= max)
+	{
+		max = c;
+	}
+		printf("So lon nhat la: %d\n",max);
 }
