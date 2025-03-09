@@ -2,34 +2,46 @@
 
 void main()
 {
-    int kWh;
-    double total = 0;
-    printf("Nhap so kWh su dung: ");
-    scanf_s("%d", &kWh);
-
-    if (kWh < 0) 
-    {
-        printf("So kWh khong hop le!\n");
-    }
-    if (kWh <= 50) 
-    {
-        total = kWh * 1678;
-    }
-    else if (kWh <= 100) {
-        total = 50 * 1678 + (kWh - 50) * 1734;
-    }
-    else if (kWh <= 200) {
-        total = 50 * 1678 + 50 * 1734 + (kWh - 100) * 2014;
-    }
-    else if (kWh <= 300) {
-        total = 50 * 1678 + 50 * 1734 + 100 * 2014 + (kWh - 200) * 2536;
-    }
-    else if (kWh <= 400) {
-        total = 50 * 1678 + 50 * 1734 + 100 * 2014 + 100 * 2536 + (kWh - 300) * 2834;
-    }
-    else {
-        total = 50 * 1678 + 50 * 1734 + 100 * 2014 + 100 * 2536 + 100 * 2834 + (kWh - 400) * 2927;
-    }
-
-    printf("So tien dien phai tra: %.2f VND\n", total);
+	int n = 1, pin, tien, temp = 0;
+	int mk = 1234;
+	while (n < 4) 
+	{
+		switch (n)
+		{
+		case 1:
+			printf("Nhap ma pin: ");
+			scanf_s("%d", &pin);
+			if (pin == mk)
+			{
+				n = 2;
+			}
+			else
+			{
+				printf("Sai ma pin\n");
+				temp++;
+				if (temp == 3)
+				{
+					n = 3;
+				}
+			}
+			break;
+		case 2:
+			printf("Nhap so tien can rut\n");
+			scanf_s("%d", &tien);
+			if (tien > 10000)
+			{
+				printf("So tien rut phai nho hon 10000\n");
+			}
+			else
+			{
+				printf("Ban da rut %d VND.\n", tien);
+				n = 4;
+			}
+			break;
+		case 3:
+			printf("Ban da nhap sai qua 3 lan. Thoat chuong trinh\n");
+			n = 4;
+			break;
+		}
+	}
 }
