@@ -2,13 +2,18 @@
 
 void main()
 {
-    int A, B;
-    printf("Nhap hai so nguyen A va B: ");
-    scanf_s("%d %d", &A, &B);
-    while (B != 0) {
-        int temp = B;
-        B = A % B;
-        A = temp;
+    int a, b;
+    int N = 1000;
+    double h, integral = 0.0;
+    printf("Nhap hai so a va b: ");
+    scanf_s("%d %d", &a, &b);
+    h = (double)(b - a) / N;
+    integral = (a * a + b * b) / 2.0;
+    for (int i = 1; i < N; i++) 
+    {
+        double x = a + i * h;
+        integral += x * x;
     }
-    printf("Uoc so chung lon nhat la: %d\n", A);
+    integral *= h;
+    printf("Gia tri tich phan tu %d den %d la: %.6lf\n", a, b, integral);
 }  
