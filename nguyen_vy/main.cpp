@@ -2,16 +2,24 @@
 
 void main()
 {
-    double P, A; 
-    double r = 8.2 / 100; 
-    int n;  
-    printf("Nhap so tien gui ban dau: ");
-    scanf_s("%lf", &P);
-    printf("Nhap so nam gui tien: ");
+    int n;
+    printf("Nhap so n: ");
     scanf_s("%d", &n);
-    A = P;
-    for (int i = 0; i < n; i++) {
-        A = A  + A*r;
-	}
-    printf("So tien nhan duoc sau %d nam la: %.2lf VND\n", n, A);
-}   
+    printf("Cac so nguyen to nho hon %d la: ", n);
+    for (int i = 2; i < n; i++) 
+    {
+        int is_prime = 1;
+        for (int j = 2; j * j < n; j++) 
+        {
+            if (i % j == 0) {
+                is_prime = 0;
+                break;
+            }
+        }
+		if (is_prime) 
+        {
+			printf("%d ", i);
+		}
+    }
+    printf("\n");
+}  
