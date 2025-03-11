@@ -2,25 +2,16 @@
 
 void main()
 {
-    int num, error_count = 0;
-
-    printf("Nhap cac so (nhap 0 de dung, qua 5 lan sai se thoat):\n");
-
-    while (1) {
-        scanf_s("%d", &num);
-        if (num == 0) 
-        {  
-            printf("Da nhap 0, ket thuc chuong trinh!\n");
-            break;
-        }
-        else if (num != 0) 
-        {  
-            error_count++;
-        }
-        if (error_count >= 5)
-        {  
-            printf("Ban da nhap sai qua 5 lan, thoat chuong trinh!\n");
-            break;
-        }
-    }
-}
+    double P, A; 
+    double r = 8.2 / 100; 
+    int n;  
+    printf("Nhap so tien gui ban dau: ");
+    scanf_s("%lf", &P);
+    printf("Nhap so nam gui tien: ");
+    scanf_s("%d", &n);
+    A = P;
+    for (int i = 0; i < n; i++) {
+        A = A  + A*r;
+	}
+    printf("So tien nhan duoc sau %d nam la: %.2lf VND\n", n, A);
+}   
