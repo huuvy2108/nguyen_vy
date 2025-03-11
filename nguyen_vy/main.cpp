@@ -2,42 +2,92 @@
 
 void main()
 {
-    double thu_nhap, thu_nhap_chiu_thue, thue = 0;
-    int so_nguoi_phu_thuoc;
-    printf("Nhap tong thu nhap hang thang (trieu VND): ");
-    scanf_s("%lf", &thu_nhap);
-    printf("Nhap so nguoi phu thuoc: ");
-    scanf_s("%d", &so_nguoi_phu_thuoc);
-    thu_nhap_chiu_thue = thu_nhap - 11 - so_nguoi_phu_thuoc * 4.4;
-    if (thu_nhap_chiu_thue <= 0) {
-        printf("Ban khong phai dong thue thu nhap ca nhan.\n");
+    int n;
+    printf("Nhap so nguyen duong (toi da 4 chu so): ");
+    scanf_s("%d", &n);
+    if (n < 0 || n > 9999) {
+        printf("Chi ho tro so tu 0 den 9999.\n");
     }
-    if (thu_nhap_chiu_thue > 80) {
-        thue += (thu_nhap_chiu_thue - 80) * 0.35;
-        thu_nhap_chiu_thue = 80;
+    int hangNghin = n / 1000;
+    int hangTram = (n / 100) % 10;
+    int hangChuc = (n / 10) % 10;
+    int hangDonVi = n % 10;
+
+    int coSo = 0;
+    int digit;  
+
+    digit = hangNghin;
+    if (digit > 0) {
+        switch (digit) {
+        case 1: printf("mot "); break;
+        case 2: printf("hai "); break;
+        case 3: printf("ba "); break;
+        case 4: printf("bon "); break;
+        case 5: printf("nam "); break;
+        case 6: printf("sau "); break;
+        case 7: printf("bay "); break;
+        case 8: printf("tam "); break;
+        case 9: printf("chin "); break;
+        }
+        printf("ngan ");
+        coSo = 1;
     }
-    if (thu_nhap_chiu_thue > 52) {
-        thue += (thu_nhap_chiu_thue - 52) * 0.30;
-        thu_nhap_chiu_thue = 52;
+    digit = hangTram;
+    if (digit > 0) {
+        switch (digit) {
+        case 1: printf("mot "); break;
+        case 2: printf("hai "); break;
+        case 3: printf("ba "); break;
+        case 4: printf("bon "); break;
+        case 5: printf("nam "); break;
+        case 6: printf("sau "); break;
+        case 7: printf("bay "); break;
+        case 8: printf("tam "); break;
+        case 9: printf("chin "); break;
+        }
+        printf("tram ");
+        coSo = 1;
     }
-    if (thu_nhap_chiu_thue > 32) {
-        thue += (thu_nhap_chiu_thue - 32) * 0.25;
-        thu_nhap_chiu_thue = 32;
+    else if (coSo && (hangChuc > 0 || hangDonVi > 0)) {
+        printf("khong tram ");
     }
-    if (thu_nhap_chiu_thue > 18) {
-        thue += (thu_nhap_chiu_thue - 18) * 0.20;
-        thu_nhap_chiu_thue = 18;
+    digit = hangChuc;
+    if (digit > 1) {
+        switch (digit) {
+        case 2: printf("hai "); break;
+        case 3: printf("ba "); break;
+        case 4: printf("bon "); break;
+        case 5: printf("nam "); break;
+        case 6: printf("sau "); break;
+        case 7: printf("bay "); break;
+        case 8: printf("tam "); break;
+        case 9: printf("chin "); break;
+        }
+        printf("muoi ");
     }
-    if (thu_nhap_chiu_thue > 10) {
-        thue += (thu_nhap_chiu_thue - 10) * 0.15;
-        thu_nhap_chiu_thue = 10;
+    else if (digit == 1) {
+        printf("muoi ");
     }
-    if (thu_nhap_chiu_thue > 5) {
-        thue += (thu_nhap_chiu_thue - 5) * 0.10;
-        thu_nhap_chiu_thue = 5;
+    else if (digit == 0 && hangDonVi > 0 && coSo) {
+        printf("le ");
     }
-    if (thu_nhap_chiu_thue > 0) {
-        thue += thu_nhap_chiu_thue * 0.05;
+    digit = hangDonVi;
+    if (digit > 0) {
+        if (hangChuc == 1 && digit == 5) {
+            printf("lam ");
+        }
+        else {
+            switch (digit) {
+            case 1: printf("mot "); break;
+            case 2: printf("hai "); break;
+            case 3: printf("ba "); break;
+            case 4: printf("bon "); break;
+            case 5: printf("nam "); break;
+            case 6: printf("sau "); break;
+            case 7: printf("bay "); break;
+            case 8: printf("tam "); break;
+            case 9: printf("chin "); break;
+            }
+        }
     }
-    printf("So tien thue thu nhap ca nhan phai nop: %.2lf trieu VND\n", thue);
 }  
