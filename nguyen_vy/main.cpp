@@ -5,7 +5,7 @@
 void main()
 {
 	int sum = 0;
-	int arr_1[9] = {};
+	int arr_1[10] = {0};
 	for (int i = 0; i < 10; i++)
 	{
 		printf("Nhap phan tu thu %d: ", i + 1);
