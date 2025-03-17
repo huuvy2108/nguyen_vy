@@ -2,21 +2,12 @@
 
 void main()
 {
-    int arr_1[] = { 5, 2, 9, 1, 7, 6, 8, 3, 4, 0 };
-    int size = sizeof(arr_1) / sizeof(arr_1[0]);
-
-    for (int i = 0; i < size - 1; i++) {
-        for (int j = 0; j < size - i - 1; j++) {
-            if (arr_1[j] > arr_1[j + 1]) {
-                int temp = arr_1[j];
-                arr_1[j] = arr_1[j + 1];
-                arr_1[j + 1] = temp;
-            }
-        }
+    char str_1[100];
+    int dem = 0;
+    printf("Nhap chuoi: ");
+    gets_s(str_1, sizeof(str_1));
+    while (str_1[dem] != '\0') {
+        dem++;
     }
-    printf("Mang sau khi sap xep tang dan: ");
-    for (int i = 0; i < size; i++) {
-        printf("%d ", arr_1[i]);
-    }
-    printf("\n");
+    printf("So ky tu trong chuoi la: %d\n", dem);
 }
