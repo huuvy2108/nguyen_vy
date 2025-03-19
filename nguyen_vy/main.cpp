@@ -1,34 +1,23 @@
 ﻿#include <stdio.h>
 
-//Chức năng: Xác định SNT
-//input:Giá trị cần kiểm tra
-//Kết quả trả về: Là SNT: 1, Không là SNT: 0
-int laSoNguyenTo(int num) {
-    if (num < 2) {
-        return 0;
-    }
-    for (int j = 2; j * j <= num; j++) {
-        if (num % j == 0) {
-            return 0;
+//Chức năng: Tim số lớn nhất trong mảng
+//input:mảng, số phần tử trong mảng 
+//Kết quả trả về: Giá trị lớn nhất trong mảng
+int timSoLonNhat(int arr[], int size) {
+    int max = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
         }
     }
-    return 1;
+    return max;
 }
 
-// Chức năng: Hàm in các số nguyên tố trong mảng
-void inSoNguyenTo(int arr[], int size) {
-    printf("Cac so nguyen to trong mang: ");
-    for (int i = 0; i < size; i++) {
-        if (laSoNguyenTo(arr[i])) {
-            printf("%d ", arr[i]);
-        }
-    }
-    printf("\n");
-}
-
-int main() {
+void main() {
     int arr_1[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     int size = sizeof(arr_1) / sizeof(arr_1[0]);
 
-    inSoNguyenTo(arr_1, size);
+    int max = timSoLonNhat(arr_1, size);
+
+    printf("So lon nhat trong mang: %d\n", max);
 }
