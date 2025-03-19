@@ -1,23 +1,24 @@
 ﻿#include <stdio.h>
 
-//Chức năng: Tim số lớn nhất trong mảng
-//input:mảng, số phần tử trong mảng 
-//Kết quả trả về: Giá trị lớn nhất trong mảng
-int timSoLonNhat(int arr[], int size) {
-    int max = arr[0];
-    for (int i = 1; i < size; i++) {
-        if (arr[i] > max) {
-            max = arr[i];
-        }
-    }
-    return max;
+//Chức năng: Hoán vị 2 số nguyên
+//input:số nguyên a, b
+//Kết quả trả về: sau khi hoán vị, a = b, b = a
+void swap(int* x, int* y) {
+    int temp = *x;
+    *x = *y;
+    *y = temp;
 }
 
 void main() {
-    int arr_1[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int size = sizeof(arr_1) / sizeof(arr_1[0]);
+    int a, b;
+    printf("Nhap hai so nguyen: \n");
 
-    int max = timSoLonNhat(arr_1, size);
+    if (scanf_s("%d %d", &a, &b) != 2) {
+        printf("Loi: Vui long nhap hai so nguyen!\n");
+    }
 
-    printf("So lon nhat trong mang: %d\n", max);
+    printf("Truoc khi hoan vi: a = %d, b = %d\n", a, b);
+    swap(&a, &b);
+    printf("Sau khi hoan vi: a = %d, b = %d\n", a, b);
+
 }
