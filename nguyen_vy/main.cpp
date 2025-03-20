@@ -1,29 +1,35 @@
 ﻿#include <stdio.h>
 
-// Chức năng: Viết hoa chữ cái đầu mỗi từ trong chuỗi
-// input: Địa chỉ phần tử đầu tiên của chuỗi
-// Kết quả trả về: Chữ cái đầu mỗi từ trong chuỗi được viết hoa
-void chuan_hoa_chuoi(char* str) {
-    int viethoa = 1;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] != ' ' && str[i] != '\t') {
-            if (viethoa == 1 && str[i] >= 'a' && str[i] <= 'z') {
-                str[i] = str[i] - ('a' - 'A');
-            }
-            viethoa = 0;
+// Chức năng: Tìm ký tự c trong chuỗi
+// input: Địa chỉ phần tử đầu tiên của chuỗi, ký tự cần tìm
+// Kết quả trả về: Địa chỉ của ký tự cần tìm thấy trong chuỗi
+char* tim_ky_tu(const char* str, char c) {
+    while (*str != '\0') {
+        if (*str == c) {
+            return (char*)str;
         }
-        else {
-            viethoa = 1;
-        }
+        str++;
     }
+    return NULL;
 }
 
-void main() {
+int main() {
     char str_1[100];
+    char c;
+    char* diachi;
 
     printf("Nhap chuoi: ");
     gets_s(str_1, sizeof(str_1));
 
-    chuan_hoa_chuoi(str_1);
-    printf("Chuoi sau khi chuan hoa: %s\n", str_1);
+    printf("Nhap ky tu can tim: ");
+    scanf_s(" %c", &c, 1);
+
+    diachi = tim_ky_tu(str_1, c);
+
+    if (diachi != NULL) {
+        printf("Ky tu '%c' duoc tim thay tai dia chi: %p\n", c, diachi);
+    }
+    else {
+        printf("Ky tu '%c' khong co trong chuoi.\n", c);
+    }
 }
