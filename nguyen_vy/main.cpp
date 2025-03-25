@@ -1,25 +1,33 @@
 ﻿#include <stdio.h>
 
-// Chức năng: Nhân 2 phân số
-// input: 
-// Phân số thứ nhất
-// Phân số thứ hai
-// Output: Kết quả phép tính
-struct phan_so {
+typedef struct {
 	int tu;
 	int mau;
-};
-struct phan_so Nhan_phan_so(struct phan_so x, struct phan_so y) {
-	struct phan_so kq;
-	kq.tu = x.tu * y.tu;
-	kq.mau = x.mau * y.mau;
-	return kq;
+}phan_so_t;
+
+// Chức năng: Tìm phân số lớn nhất
+// input: 
+//	Địa chỉ bắt đau của phân số
+//	Số lượng phần tử của mảng
+// Output: Phân số lớn nhất
+phan_so_t phan_so_lon_nhat(phan_so_t* mang, int n) {
+	phan_so_t max = mang[0];
+	for (int i = 1; i < n; i++) {
+		if (mang[i].tu * max.mau > max.tu * mang[i].mau) {
+			max = mang[i];
+		}
+	}
+	return max;
 }
 
 void main() {
-	struct phan_so x, y;
-	printf("Nhap 2 phan so: \n");
-	scanf_s("%d%d%d%d", &x.tu, &x.mau, &y.tu, &y.mau);
-	struct phan_so kq = Nhan_phan_so(x, y);
-	printf("%d/%d", kq.tu, kq.mau);
+	phan_so_t mang_1[] = {
+	{1, 2 },
+	{ 2, 3 },
+	{ 3, 4 },
+	{ 4, 5 },
+	{ 5, 6 }
+	};
+	phan_so_t C = phan_so_lon_nhat(mang_1, 5);
+	printf("Phan so lon nhat la: %d/%d", C.tu, C.mau);
 }
