@@ -1,79 +1,96 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#define MAX_HS 100
+#define MAX_LINE 256
 
-typedef enum
-{
-	NAM,
-	NU
-} gioi_tinh_t;
-const char* gioi_tinh_str[] = { "Nam", "Nu" };
+typedef struct {
+    char ten[100];
+    int tuoi;
+    char gioitinh[10];
+    float diem1, diem2;
+    float dtb;
+} HocSinh;
 
-typedef enum
-{
-	GIOI,
-	KHA,
-	TRUNG_BINH,
-	YEU
-} loai_t;
-const char* loai_str[] = { "Gioi", "Kha", "Trung binh", "Yeu" };
-
-typedef struct
-{
-	const char* ten;
-	int tuoi;
-	gioi_tinh_t gioi_tinh;
-	float diem_toan;
-	float diem_van;
-	loai_t loai;
-} hoc_sinh_t;
-
-void xep_loai(hoc_sinh_t* arr, int  so_luong)
-{
-	float diem_tb = 0;
-	for (int i = 0; i < so_luong; i++)
-	{
-		diem_tb = (arr[i].diem_toan + arr[i].diem_van) / 2;
-		if (diem_tb >= 8)
-		{
-			arr[i].loai = GIOI;
-		}
-		else if (diem_tb >= 6.5)
-		{
-			arr[i].loai = KHA;
-		}
-		else if (diem_tb >= 5)
-		{
-			arr[i].loai = TRUNG_BINH;
-		}
-		else
-		{
-			arr[i].loai = YEU;
-		}
-	}
+void tinhDTB(HocSinh* hs) {
+    hs->dtb = (hs->diem1 + hs->diem2) / 2.0f;
 }
 
-void In_ds(hoc_sinh_t* arr, int so_luong)
-{
-	for (int i = 0; i < so_luong; i++)
-	{
-		printf("Ten: %s\n", arr[i].ten);
-		printf("Tuoi: %d\n", arr[i].tuoi);
-		printf("Gioi tinh: %s\n", gioi_tinh_str[arr[i].gioi_tinh]);
-		printf("Diem toan: %.2f\n", arr[i].diem_toan);
-		printf("Diem van: %.2f\n", arr[i].diem_van);
-		xep_loai(arr, so_luong);
-		printf("Xep loai: %s\n",loai_str[arr[i].loai]);
-	}
+void hoanVi(HocSinh* a, HocSinh* b) {
+    HocSinh temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-void main()
-{
-	hoc_sinh_t arr[] = {
-		{"Nguyen Van A", 18, NAM, 8.5, 9.0},
-		{"Nguyen Van B", 19, NU, 7.0, 6.5},
-		{"Nguyen Van C", 20, NAM, 6.0, 5.5},
-		{"Nguyen Van D", 21, NU, 4.5, 4.0}
-	};
-	xep_loai(arr, 4);
-	In_ds(arr, 4);
+int main() {
+    FILE* f = fopen("D:/Nguyen_Vy/DanhSachHocSinh1.csv", "r");
+    if (!f) {
+        printf("Không thể mở file DanhSachHocSinh1.csv\n");
+        return 1;
+    }
+
+    HocSinh ds[MAX_HS];
+    int n = 0;
+    char line[MAX_LINE];
+
+    while (fgets(line, MAX_LINE, f) && n < MAX_HS) {
+        line[strcspn(line, "\n")] = '\0'; // Xoá newline
+
+        char ten[100], gioitinh[10];
+        int tuoi;
+        float d1, d2;
+
+        int count = sscanf(line, "%99[^,],%d,%9[^,],%f,%f", ten, &tuoi, gioitinh, &d1, &d2);
+        if (count == 5) {
+            strcpy(ds[n].ten, ten);
+            ds[n].tuoi = tuoi;
+            strcpy(ds[n].gioitinh, gioitinh);
+            ds[n].diem1 = d1;
+            ds[n].diem2 = d2;
+            tinhDTB(&ds[n]);
+            n++;
+        }
+        else {
+            printf("Dòng sai định dạng: %s\n", line);
+        }
+    }
+    fclose(f);
+
+    // Tìm học sinh có điểm trung bình cao nhất
+    int vitriMax = 0;
+    for (int i = 1; i < n; i++) {
+        if (ds[i].dtb > ds[vitriMax].dtb) {
+            vitriMax = i;
+        }
+    }
+
+    printf("Hoc sinh co diem trung binh cao nhat:\n");
+    printf("%s - DTB: %.2f\n", ds[vitriMax].ten, ds[vitriMax].dtb);
+
+    // Sắp xếp giảm dần theo điểm trung bình
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (ds[i].dtb < ds[j].dtb) {
+                hoanVi(&ds[i], &ds[j]);
+            }
+        }
+    }
+
+    // Ghi vào file mới
+    FILE* fout = fopen("D:/Nguyen_Vy/DanhSachHocSinh_SapXep.csv", "w");
+    if (!fout) {
+        printf("Không thể tạo file DanhSachHocSinh_SapXep.csv\n");
+        return 1;
+    }
+
+    fprintf(fout, "Ten,Tuoi,GioiTinh,Diem1,Diem2,DTB\n");
+    for (int i = 0; i < n; i++) {
+        fprintf(fout, "%s,%d,%s,%.1f,%.1f,%.2f\n",
+            ds[i].ten, ds[i].tuoi, ds[i].gioitinh, ds[i].diem1, ds[i].diem2, ds[i].dtb);
+    }
+    fclose(fout);
+
+    printf("Da ghi danh sach sap xep vao DanhSachHocSinh_SapXep.csv\n");
+
 }
