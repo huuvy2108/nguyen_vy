@@ -1,39 +1,109 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
+﻿#include "iostream"
+#include "toan.h"
+using namespace std;
 
-int main() {
-    FILE* f = fopen("D:/Nguyen_Vy/audio.wav", "rb");
-    if (!f) {
-        printf("Khong the mo file WAV.\n");
-        return 1;
-    }
-
-    char chunkID[5], format[5];
-    uint32_t chunkSize, sampleRate;
-
-    fseek(f, 0, SEEK_SET);
-    fread(chunkID, 1, 4, f);
-    chunkID[4] = '\0'; 
-
-    fread(&chunkSize, sizeof(uint32_t), 1, f);
-    fread(format, 1, 4, f);
-    format[4] = '\0';
-
-    if (strncmp(chunkID, "RIFF", 4) != 0 || strncmp(format, "WAVE", 4) != 0) {
-        printf("Đay khong phai la file WAV hop le.\n");
-        fclose(f);
-        return 1;
-    }
-
-    fseek(f, 24, SEEK_SET);
-    fread(&sampleRate, sizeof(uint32_t), 1, f);
-
-    printf("Kich thuoc file (ChunkSize + 8): %u bytes\n", chunkSize + 8);
-    printf("Sample rate: %u Hz\n", sampleRate);
-
-    fclose(f);
-   
+class phanso
+{
+public:
+	int tu;
+	int mau;
+	phanso operator*(phanso khac);
+	phanso operator/(phanso khac);
+	phanso operator+(phanso khac);
+	phanso operator-(phanso khac);
+	phanso rutgon();
+	phanso operator>(phanso khac);
+	phanso operator<(phanso khac);
+	phanso operator>=(phanso khac);
+	phanso operator<=(phanso khac);
+	phanso operator==(phanso khac);
+};
+phanso phanso::operator*(phanso khac)
+{
+	phanso ketqua;
+	ketqua.tu = tu * khac.tu;
+	ketqua.mau = mau * khac.mau;
+	return ketqua;
 }
+phanso phanso::operator/(phanso khac)
+{
+	phanso ketqua;
+	ketqua.tu = tu * khac.mau;
+	ketqua.mau = mau * khac.tu;
+	return ketqua;
+}
+phanso phanso::operator+(phanso khac)
+{
+	phanso ketqua;
+	ketqua.tu = tu * khac.mau + mau * khac.tu;
+	ketqua.mau = mau * khac.mau;
+	return ketqua;
+}
+phanso phanso::operator-(phanso khac)
+{
+	phanso ketqua;
+	ketqua.tu = tu * khac.mau - mau * khac.tu;
+	ketqua.mau = mau * khac.mau;
+	return ketqua;
+}
+phanso phanso::rutgon()
+{
+	int ucln = 1;
+	for (int i = 1; i <= tu && i <= mau; i++)
+	{
+		if (tu % i == 0 && mau % i == 0)
+			ucln = i;
+	}
+	tu /= ucln;
+	mau /= ucln;
+	return *this;
+}
+phanso phanso::operator>(phanso khac)
+{
+	if (tu * khac.mau > mau * khac.tu)
+		return *this;
+	else
+		return khac;
+}
+phanso phanso::operator<(phanso khac)
+{
+	if (tu * khac.mau < mau * khac.tu)
+		return *this;
+	else
+		return khac;
+}
+phanso phanso::operator>=(phanso khac)
+{
+	if (tu * khac.mau >= mau * khac.tu)
+		return *this;
+	else
+		return khac;
+}
+phanso phanso::operator<=(phanso khac)
+{
+	if (tu * khac.mau <= mau * khac.tu)
+		return *this;
+	else
+		return khac;
+}
+phanso phanso::operator==(phanso khac)
+{
+	if (tu * khac.mau == mau * khac.tu)
+		return *this;
+	else
+		return khac;
+}
+
+void main()
+{
+	phanso a, b, c;
+	a.tu = 1;
+	a.mau = 2;
+	b.tu = 3;
+	b.mau = 4;
+	c = a*b;
+	cout << "Phan so a: " << a.tu << "/" << a.mau << endl;
+	cout << "Phan so b: " << b.tu << "/" << b.mau << endl;
+	cout << "Phan so c: " << c.tu << "/" << c.mau << endl;
+}
+
