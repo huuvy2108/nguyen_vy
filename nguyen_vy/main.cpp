@@ -1,109 +1,30 @@
 ﻿#include "iostream"
-#include "toan.h"
-using namespace std;
 
-class phanso
-{
+class Myarray {
 public:
-	int tu;
-	int mau;
-	phanso operator*(phanso khac);
-	phanso operator/(phanso khac);
-	phanso operator+(phanso khac);
-	phanso operator-(phanso khac);
-	phanso rutgon();
-	phanso operator>(phanso khac);
-	phanso operator<(phanso khac);
-	phanso operator>=(phanso khac);
-	phanso operator<=(phanso khac);
-	phanso operator==(phanso khac);
-};
-phanso phanso::operator*(phanso khac)
-{
-	phanso ketqua;
-	ketqua.tu = tu * khac.tu;
-	ketqua.mau = mau * khac.mau;
-	return ketqua;
-}
-phanso phanso::operator/(phanso khac)
-{
-	phanso ketqua;
-	ketqua.tu = tu * khac.mau;
-	ketqua.mau = mau * khac.tu;
-	return ketqua;
-}
-phanso phanso::operator+(phanso khac)
-{
-	phanso ketqua;
-	ketqua.tu = tu * khac.mau + mau * khac.tu;
-	ketqua.mau = mau * khac.mau;
-	return ketqua;
-}
-phanso phanso::operator-(phanso khac)
-{
-	phanso ketqua;
-	ketqua.tu = tu * khac.mau - mau * khac.tu;
-	ketqua.mau = mau * khac.mau;
-	return ketqua;
-}
-phanso phanso::rutgon()
-{
-	int ucln = 1;
-	for (int i = 1; i <= tu && i <= mau; i++)
-	{
-		if (tu % i == 0 && mau % i == 0)
-			ucln = i;
+	int* data;
+	int size;
+	Myarray(int s) {
+		size = s;
+		data = new int[size];
+		for (int i = 0; i < size; ++i)
+			data[i] = 0;
 	}
-	tu /= ucln;
-	mau /= ucln;
-	return *this;
-}
-phanso phanso::operator>(phanso khac)
-{
-	if (tu * khac.mau > mau * khac.tu)
-		return *this;
-	else
-		return khac;
-}
-phanso phanso::operator<(phanso khac)
-{
-	if (tu * khac.mau < mau * khac.tu)
-		return *this;
-	else
-		return khac;
-}
-phanso phanso::operator>=(phanso khac)
-{
-	if (tu * khac.mau >= mau * khac.tu)
-		return *this;
-	else
-		return khac;
-}
-phanso phanso::operator<=(phanso khac)
-{
-	if (tu * khac.mau <= mau * khac.tu)
-		return *this;
-	else
-		return khac;
-}
-phanso phanso::operator==(phanso khac)
-{
-	if (tu * khac.mau == mau * khac.tu)
-		return *this;
-	else
-		return khac;
-}
+	~Myarray() {
+		delete[] data;
+	}
+	int& operator[](int index) {
+		if (index < 0 || index >= size) {
+			std::cerr << "Loi: chi so vuot gioi han!\n";
+			exit(1);
+		}
+		return data[index];
+	}
+	int getSize() {
+		return size;
+	}
+};
 
-void main()
-{
-	phanso a, b, c;
-	a.tu = 1;
-	a.mau = 2;
-	b.tu = 3;
-	b.mau = 4;
-	c = a*b;
-	cout << "Phan so a: " << a.tu << "/" << a.mau << endl;
-	cout << "Phan so b: " << b.tu << "/" << b.mau << endl;
-	cout << "Phan so c: " << c.tu << "/" << c.mau << endl;
+void main() {
+	Myarray a(5);
 }
-
