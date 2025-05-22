@@ -1,30 +1,16 @@
-﻿#include "iostream"
+﻿#include <stdio.h>
 
-class Myarray {
-public:
-	int* data;
-	int size;
-	Myarray(int s) {
-		size = s;
-		data = new int[size];
-		for (int i = 0; i < size; ++i)
-			data[i] = 0;
-	}
-	~Myarray() {
-		delete[] data;
-	}
-	int& operator[](int index) {
-		if (index < 0 || index >= size) {
-			std::cerr << "Loi: chi so vuot gioi han!\n";
-			exit(1);
-		}
-		return data[index];
-	}
-	int getSize() {
-		return size;
-	}
-};
+void tach_byte(unsigned short value) {
+    unsigned char high_byte = (value >> 8) & 0xFF; 
+    unsigned char low_byte = value & 0xFF;         
+
+    printf("Byte cao: %u (0x%02X)\n", high_byte, high_byte);
+    printf("Byte thap: %u (0x%02X)\n", low_byte, low_byte);
+}
 
 void main() {
-	Myarray a(5);
+    unsigned short so;
+    printf("Nhap mot so nguyen 16-bit (0 - 65535): ");
+    scanf_s("%hu", &so);
+    tach_byte(so);
 }
