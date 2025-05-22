@@ -1,16 +1,53 @@
-﻿#include <stdio.h>
+﻿#include <iostream>
 
-void tach_byte(unsigned short value) {
-    unsigned char high_byte = (value >> 8) & 0xFF; 
-    unsigned char low_byte = value & 0xFF;         
+class Phuongtrinhbac2 {
+private:
+	double a, b, c; 
+public:
+	Phuongtrinhbac2() : a(0), b(0), c(0) {}
+	void Nhap() {
+		std::cout << "Nhap he so a: ";
+		std::cin >> a;
+		std::cout << "Nhap he so b: ";
+		std::cin >> b;
+		std::cout << "Nhap he so c: ";
+		std::cin >> c;
+	}
 
-    printf("Byte cao: %u (0x%02X)\n", high_byte, high_byte);
-    printf("Byte thap: %u (0x%02X)\n", low_byte, low_byte);
-}
+	void Giaipt() {
+		if (a == 0) {
+			if (b == 0) {
+				if (c == 0) {
+					std::cout << "Phuong trinh co vo so nghiem." << std::endl;
+				}
+				else {
+					std::cout << "Phuong trinh vo nghiem." << std::endl;
+				}
+			}
+			else {
+				std::cout << "Phuong trinh co 1 nghiem: x = " << -c / b << std::endl;
+			}
+		}
+		else {
+			double delta = b * b - 4 * a * c;
+			if (delta > 0) {
+				double x1 = (-b + sqrt(delta)) / (2 * a);
+				double x2 = (-b - sqrt(delta)) / (2 * a);
+				std::cout << "Phuong trinh co 2 nghiem phan biet: x1 = " << x1 << ", x2 = " << x2 << std::endl;
+			}
+			else if (delta == 0) {
+				double x = -b / (2 * a);
+				std::cout << "Phuong trinh co nghiem kep: x = " << x << std::endl;
+			}
+			else {
+				std::cout << "Phuong trinh vo nghiem." << std::endl;
+			}
+		}
+	}
+};
 
 void main() {
-    unsigned short so;
-    printf("Nhap mot so nguyen 16-bit (0 - 65535): ");
-    scanf_s("%hu", &so);
-    tach_byte(so);
+	Phuongtrinhbac2 pt;
+	pt.Nhap();
+	pt.Giaipt();
 }
